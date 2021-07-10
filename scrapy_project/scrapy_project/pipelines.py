@@ -13,9 +13,7 @@ class ScrapyProjectPipeline(object):
 
 class QuotePipeline(object):
     def process_item(self, item, spider):
-        if not isinstance(item, QuoteItem):
-            return item
-        else:
+        if isinstance(item, QuoteItem):
             item.save()
             for tag_name in item['tag_list']:
                 tag, _ = Tag.objects.get_or_create(name=tag_name)
