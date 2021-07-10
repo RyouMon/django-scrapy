@@ -14,9 +14,8 @@ class ScrapyProjectPipeline(object):
 class QuotePipeline(object):
     def process_item(self, item, spider):
         if isinstance(item, QuoteItem):
-            item.save()
+            quote = item.save()
             for tag_name in item['tag_list']:
                 tag, _ = Tag.objects.get_or_create(name=tag_name)
-                quote = Quote.objects.get(title=item['title'], author=item['author'])
                 quote.tags.add(tag)
         return item
